@@ -22,14 +22,17 @@ import org.lwjgl.opengl.PixelFormat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import pl.telvarost.mojangfixstationapi.Config;
 
-@Mixin(Minecraft.class)
-public abstract class BitDepthFixMixin {
-
-    @Redirect(method = "init", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;create()V", ordinal = 0, remap = false))
-    private void onDisplayCreate() throws LWJGLException {
-        PixelFormat pixelformat = new PixelFormat();
-        pixelformat = pixelformat.withDepthBits(24);
-        Display.create(pixelformat);
+@Mixin(value = Minecraft.class)
+public class BitDepthFixMixin {
+	
+    @Redirect(method = "init", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/Display;create()V"), require = 0)
+    public void bitDepthFix() throws LWJGLException {
+            if (Config.config.enablebitDepthFix) {
+                Display.create(new PixelFormat().withDepthBits(24));
+            } else {
+                Display.create();
+            }
+        }
     }
-}
