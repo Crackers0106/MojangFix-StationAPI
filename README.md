@@ -51,7 +51,7 @@ Allows the server to verify that the connecting player is logged in
   - This edition of MojangFix lets you change it yourself as well in the config settings
 </details>
 
-## Installation using Prism Launcher
+## Installation using Prism Launcher/MultiMC
 
 1. Download an instance of Babric for Prism Launcher: https://github.com/babric/prism-instance
 2. Install Java 17, set the instance to use it, and disable compatibility checks on the instance: https://adoptium.net/temurin/releases/
